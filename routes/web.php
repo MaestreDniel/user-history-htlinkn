@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OfertaController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,8 +29,12 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/ofertas', function () {
-    return Inertia::render('UserHistory/Ofertas');
-})->middleware(['auth', 'verified'])->name('ofertas');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::controller(OfertaController::class)->group(function () {
+        Route::get('/ofertas', 'index')->name('ofertas');
+        Route::get('/detalle', 'detail')->name('detalle');
+    });
+});
+
 
 require __DIR__.'/auth.php';

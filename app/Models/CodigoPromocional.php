@@ -9,6 +9,9 @@ class CodigoPromocional extends Model
 {
     use HasFactory;
 
+    // Especificado el nombre de tabla porque la pluralización de Laravel no cuadra con este caso
+    protected $table = 'codigos_promocionales';
+
     protected $fillable = [
         'codigo',
         'is_canjeado',

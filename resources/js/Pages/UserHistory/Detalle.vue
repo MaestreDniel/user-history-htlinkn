@@ -8,17 +8,15 @@ import BreezeButton from '@/Components/Button.vue';
     <div class="container mx-auto mt-4">
       <table class="table-auto border-collapse border border-slate-500">
         <thead class="bg-gray-300">
-          <th class="border border-slate-600 p-2">Oferta</th>
-          <th class="border border-slate-600 p-2">Descripción</th>
-          <th class="border border-slate-600 p-2">Promoción</th>
+          <th class="border border-slate-600 p-2">Código</th>
+          <th class="border border-slate-600 p-2">Canjear</th>
         </thead>
         <tbody>
-          <tr v-for="oferta in ofertas.data" :key="oferta.id">
-            <td class="border border-slate-600 p-2">{{ oferta.nombre_oferta }}</td>
-            <td class="border border-slate-600 p-2">{{ oferta.descripcion }}</td>
+          <tr v-for="codigo in codigos.data" :key="codigo.id">
+            <td class="border border-slate-600 p-2">{{ codigo.codigo }}</td>
             <td class="border border-slate-600 p-2">
               <BreezeButton>
-                Obtener un código
+                Canjear
               </BreezeButton>
             </td>
           </tr>
@@ -31,7 +29,7 @@ import BreezeButton from '@/Components/Button.vue';
 <script>
 export default {
   props: {
-    ofertas: Object,
+    codigos: Object,
   }
 }
 </script>
