@@ -21,7 +21,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'codigo_promocional_id',
     ];
+
+    public function codigosPromocionales()
+    {
+        return $this->hasMany(CodigoPromocional::class, 'codigo_promocional_id', 'id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
