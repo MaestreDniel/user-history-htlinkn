@@ -33,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(OfertaController::class)->group(function () {
         Route::get('/ofertas', 'index')->name('ofertas');
         Route::get('/detalle', 'detail')->name('detalle');
+        Route::post('/ofertas', 'store')->name('generar');
     });
 });
 

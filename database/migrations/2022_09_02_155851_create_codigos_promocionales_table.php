@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('codigo')->unique();
             $table->boolean('is_canjeado')->default(false);
-            $table->foreignId('canjeado_por')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

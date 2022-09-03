@@ -15,6 +15,7 @@ class CodigoPromocional extends Model
     protected $fillable = [
         'codigo',
         'is_canjeado',
+        'user_id',
     ];
 
     public function user()
