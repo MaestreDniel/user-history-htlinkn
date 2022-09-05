@@ -1,7 +1,6 @@
 <template>
   <Authenticated>
     <div class="container mx-auto mt-4">
-      <h2>Prueba código: {{ codigo }}, usuario: {{ user_id }}</h2>
       <table class="table-auto border-collapse border border-slate-500">
         <thead class="bg-gray-300">
           <th class="border border-slate-600 p-2">Oferta</th>
@@ -29,8 +28,7 @@
 <script>
 import Authenticated from '../../Layouts/Authenticated.vue';
 import BreezeButton from '@/Components/Button.vue';
-import { Link } from '@inertiajs/inertia-vue3';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { Link, useForm } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 
 export default {
@@ -51,7 +49,7 @@ export default {
     });
 
     function submit() {
-      Inertia.post(route('generar', this.form))
+      Inertia.post(route('generar', this.form));
     }
 
     return { form, submit };

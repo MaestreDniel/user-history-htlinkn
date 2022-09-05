@@ -6,6 +6,8 @@ use App\Models\CodigoPromocional;
 use App\Models\Oferta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 
@@ -24,7 +26,7 @@ class OfertaController extends Controller
         ]);
     }
 
-    public function detail() 
+    public function detalle() 
     {
         $usuario = Auth::user()->id;
         $codigo = CodigoPromocional::query()->where('user_id', $usuario)->latest()->paginate(15);
@@ -34,7 +36,7 @@ class OfertaController extends Controller
         ]);
     }
 
-    public function store(Request $request) 
+    public function genera_codigo(Request $request) 
     {
         $codigo_generado = CodigoPromocional::create(
             $request->validate([
@@ -44,9 +46,31 @@ class OfertaController extends Controller
         );
 
         $codigo_generado->save();
+
+        return Redirect::route('detalle')->with('success', 'Tu código de promoción se ha generado correctamente');
     }
 
-    public function canjear_codigo(Request $request) {
-        
+    public function confirma_canjeo(CodigoPromocional $codigo) 
+    {
+        return Inertia::render('UserHistory/Canjeo', [
+            'codigo' => $codigo
+        ]);
+    }
+
+    public function canjear_codigo(Request $request, CodigoPromocional $codigo) 
+    {
+        $validator = Validator::make($request->except('_method'), [
+            'is_canjeado' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::route('detalle')->with('error', 'Ha habido algún problema al intentar canjear el código');
+        }
+
+        $codigo = CodigoPromocional::where('id', $codigo->id)->update([
+            'is_canjeado' => $request->is_canjeado,
+        ]);
+
+        return Redirect::route('detalle')->with('success', 'Has canjeado tu código de promoción correctamente');
     }
 }

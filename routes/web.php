@@ -32,8 +32,10 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(OfertaController::class)->group(function () {
         Route::get('/ofertas', 'index')->name('ofertas');
-        Route::get('/detalle', 'detail')->name('detalle');
-        Route::post('/ofertas', 'store')->name('generar');
+        Route::get('/detalle', 'detalle')->name('detalle');
+        Route::get('/canjeo/{codigo}', 'confirma_canjeo')->name('confirma_canjeo');
+        Route::post('/ofertas', 'genera_codigo')->name('generar');
+        Route::patch('/canjeo/{codigo}', 'canjear_codigo')->name('canjear');
     });
 });
 
