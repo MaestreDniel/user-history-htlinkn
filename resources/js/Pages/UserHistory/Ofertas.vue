@@ -49,7 +49,7 @@ export default {
     });
 
     function submit() {
-      Inertia.post(route('generar', this.form));
+      Inertia.post(route('almacenar', this.form));
     }
 
     return { form, submit };

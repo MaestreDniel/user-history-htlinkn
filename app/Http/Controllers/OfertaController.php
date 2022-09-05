@@ -13,6 +13,10 @@ use Illuminate\Support\Str;
 
 class OfertaController extends Controller
 {
+    /**
+     * La página principal de la aplicación, en la que se muestran las ofertas de ejemplo,
+     * y prepara un código de promoción aleatorio que el usuario podría adquirir.
+     */
     public function index() 
     {
         $oferta = Oferta::query()->latest()->paginate(15);
@@ -26,6 +30,10 @@ class OfertaController extends Controller
         ]);
     }
 
+    /**
+     * Muestra la página de detalle con los códigos de promoción que pertenecen al usuario,
+     * no debe mostrar los que han adquirido otras personas.
+     */
     public function detalle() 
     {
         $usuario = Auth::user()->id;
@@ -36,7 +44,11 @@ class OfertaController extends Controller
         ]);
     }
 
-    public function genera_codigo(Request $request) 
+    /**
+     * Cuando el usuario pulsa el botón de 'obtener código', este se guarda en la base de datos 
+     * y se notifica el éxito de la operación.
+     */
+    public function almacena_codigo(Request $request) 
     {
         $codigo_generado = CodigoPromocional::create(
             $request->validate([
@@ -50,6 +62,9 @@ class OfertaController extends Controller
         return Redirect::route('detalle')->with('success', 'Tu código de promoción se ha generado correctamente');
     }
 
+    /**
+     * Es un apartado donde se debe confirmar el canjeo.
+     */
     public function confirma_canjeo(CodigoPromocional $codigo) 
     {
         return Inertia::render('UserHistory/Canjeo', [
@@ -57,6 +72,10 @@ class OfertaController extends Controller
         ]);
     }
 
+    /**
+     * Hace efectivo el canjeo del código promocional. Este controlador marca como canjeado el código
+     * promocional que se había solicitado anteriormente y notifica al usuario si la operación tuvo éxito.
+     */
     public function canjear_codigo(Request $request, CodigoPromocional $codigo) 
     {
         $validator = Validator::make($request->except('_method'), [

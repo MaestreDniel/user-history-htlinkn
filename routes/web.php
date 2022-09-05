@@ -29,12 +29,16 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+/**
+ * Es necesario tener un usuario logueado para usar todas las funcionalidades de la aplicación
+ * ya que se controla todo con el middleware de auth.
+ */ 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(OfertaController::class)->group(function () {
         Route::get('/ofertas', 'index')->name('ofertas');
         Route::get('/detalle', 'detalle')->name('detalle');
         Route::get('/canjeo/{codigo}', 'confirma_canjeo')->name('confirma_canjeo');
-        Route::post('/ofertas', 'genera_codigo')->name('generar');
+        Route::post('/ofertas', 'almacena_codigo')->name('almacenar');
         Route::patch('/canjeo/{codigo}', 'canjear_codigo')->name('canjear');
     });
 });
