@@ -4,7 +4,6 @@
 - Clonar este repositorio
 - En la consola/terminal, situarse en la carpeta principal del proyecto "user-history-htlinkn"
 - Ejecutar ```composer update``` y ```npm install```
-- Instalación de Laravel Breeze con Vue, ```php artisan breeze:install vue```
 - Crear una base de datos local tipo SQL y ajustar las credenciales del .env, por ejemplo:
 ```
 DB_CONNECTION=mysql

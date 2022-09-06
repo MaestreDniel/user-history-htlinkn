@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\OfferController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,12 +34,12 @@ Route::get('/dashboard', function () {
  * ya que se controla todo con el middleware de auth.
  */ 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::controller(OfertaController::class)->group(function () {
-        Route::get('/ofertas', 'index')->name('ofertas');
-        Route::get('/detalle', 'detalle')->name('detalle');
-        Route::get('/canjeo/{codigo}', 'confirma_canjeo')->name('confirma_canjeo');
-        Route::post('/ofertas', 'almacena_codigo')->name('almacenar');
-        Route::patch('/canjeo/{codigo}', 'canjear_codigo')->name('canjear');
+    Route::controller(OfferController::class)->group(function () {
+        Route::get('/offers', 'index')->name('offers');
+        Route::get('/detail', 'detail')->name('detail');
+        Route::get('/redeem/{code}', 'redeem_confirmation')->name('redeem_confirmation');
+        Route::post('/offers', 'store_code')->name('store');
+        Route::patch('/redeem/{code}', 'redeem_code')->name('redeem');
     });
 });
 

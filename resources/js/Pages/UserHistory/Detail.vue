@@ -15,11 +15,11 @@ import BreezeButton from '@/Components/Button.vue';
           <th class="border border-slate-600 p-2">Canjear</th>
         </thead>
         <tbody>
-          <tr v-for="codigo in codigos.data" :key="codigo.id" class="bg-gray-200">
-            <td class="border border-slate-600 p-2">{{ codigo.codigo }}</td>
+          <tr v-for="code in codes.data" :key="code.id" class="bg-gray-200">
+            <td class="border border-slate-600 p-2">{{ code.code }}</td>
             <td class="border border-slate-600 p-2">
-              <div v-if="codigo.is_canjeado === 0">
-                <Link :href="route('confirma_canjeo', codigo.id)">
+              <div v-if="code.is_redeemed === 0">
+                <Link :href="route('redeem_confirmation', code.id)">
                   <BreezeButton>Canjear</BreezeButton>
                 </Link>
               </div>
@@ -39,7 +39,7 @@ import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
   props: {
-    codigos: Object,
+    codes: Object,
   },
   components: {
     Link,

@@ -1,11 +1,11 @@
 <template>
   <Authenticated>
     <div class="container mx-auto mt-4">
-      <h3 class="text-xl">Estás a punto de canjear tu código: {{ codigo.codigo }} </h3>
+      <h3 class="text-xl">Estás a punto de canjear tu código: {{ code.code }} </h3>
       <form @submit.prevent="submit">
-        <BreezeButton>Canjear</BreezeButton>
-        <input id="codigo" type="hidden" v-model="form.codigo" />
-        <input id="is_canjeado" type="hidden" v-model="form.is_canjeado" />
+        <BreezeButton class="mt-4">Canjear</BreezeButton>
+        <input id="code" type="hidden" v-model="form.code" />
+        <input id="is_redeemed" type="hidden" v-model="form.is_redeemed" />
       </form>
     </div>
   </Authenticated>
@@ -19,7 +19,7 @@ import BreezeButton from '@/Components/Button.vue';
 
 export default {
   props: {
-    codigo: Object,
+    code: Object,
   },
   components: {
     Authenticated,
@@ -28,15 +28,15 @@ export default {
   },
   setup(props) {
     const form = useForm({
-      codigo: props.codigo.id,
-      is_canjeado: 1,
+      code: props.code.id,
+      is_redeemed: 1,
     });
     
     function submit() {
-      Inertia.post(route('canjear', {
+      Inertia.post(route('redeem', {
         _method: 'patch',
-        codigo: form.codigo,
-        is_canjeado: form.is_canjeado
+        code: form.code,
+        is_redeemed: form.is_redeemed
       }))
     }
 

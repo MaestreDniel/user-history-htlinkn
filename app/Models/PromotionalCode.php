@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CodigoPromocional extends Model
+class PromotionalCode extends Model
 {
     use HasFactory;
 
-    // Especificado el nombre de tabla porque la pluralización de Laravel no cuadra con este caso
-    protected $table = 'codigos_promocionales';
-
     protected $fillable = [
-        'codigo',
-        'is_canjeado',
+        'code',
+        'is_redeemed',
         'user_id',
     ];
 

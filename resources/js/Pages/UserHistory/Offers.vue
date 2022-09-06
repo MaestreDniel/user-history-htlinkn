@@ -8,12 +8,12 @@
           <th class="border border-slate-600 p-2">Promoción</th>
         </thead>
         <tbody>
-          <tr v-for="oferta in ofertas.data" :key="oferta.id">
-            <td class="border border-slate-600 p-2">{{ oferta.nombre_oferta }}</td>
-            <td class="border border-slate-600 p-2">{{ oferta.descripcion }}</td>
+          <tr v-for="offer in offers.data" :key="offer.id">
+            <td class="border border-slate-600 p-2">{{ offer.offer_name }}</td>
+            <td class="border border-slate-600 p-2">{{ offer.description }}</td>
             <td class="border border-slate-600 p-2">
               <form @submit.prevent="submit">
-                <input id="codigo" type="hidden" v-model="form.codigo" />
+                <input id="code" type="hidden" v-model="form.code" />
                 <input id="user_id" type="hidden" v-model="form.user_id" />
                 <BreezeButton>Obtener un código</BreezeButton>
               </form>
@@ -33,8 +33,8 @@ import { Inertia } from '@inertiajs/inertia';
 
 export default {
   props: {
-    ofertas: Object,
-    codigo: String,
+    offers: Object,
+    code: String,
     user_id: Number,
   },
   components: {
@@ -45,11 +45,11 @@ export default {
   setup(props) {
     const form = useForm({
       user_id: props.user_id,
-      codigo: props.codigo
+      code: props.code
     });
 
     function submit() {
-      Inertia.post(route('almacenar', this.form));
+      Inertia.post(route('store', this.form));
     }
 
     return { form, submit };

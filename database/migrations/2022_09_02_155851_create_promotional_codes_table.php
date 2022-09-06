@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('codigos_promocionales', function (Blueprint $table) {
+        Schema::create('promotional_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo')->unique();
-            $table->boolean('is_canjeado')->default(false);
+            $table->string('code')->unique();
+            $table->boolean('is_redeemed')->default(false);
             $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('codigos_promocionales');
+        Schema::dropIfExists('promotional_codes');
     }
 };
